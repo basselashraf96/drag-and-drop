@@ -17,6 +17,7 @@ blocks.forEach(item => {
 
 
 /***********  Global Scope  **********/
+
 let DraggedItem
 
 /***********  Handlers ***************/
