@@ -18,26 +18,18 @@ blocks.forEach(item => {
 /***********  Events (Mobile) *******/
 
 if (screen.width <= 765) {
-    chessPiece.addEventListener("touchstart", touchStartHandler)
-
-    blocks.forEach(item => {
-        item.addEventListener("touchmove", touchMoveHandler)
-    })
+    chessPiece.addEventListener("touchmove", touchMoveHandler)
+    chessPiece.addEventListener("touchend", touchEndHandler)
 }
 
 /***********  Global Scope  **********/
 
 let DraggedItem
 
-if (screen.width <= 765) {
-    let DraggedItemMobile
-}
-
 /***********  Handlers ***************/
 
 function dragStartHandler(e) {
     DraggedItem = e.target
-    console.log(screen.width);
 }
 
 function dragHandler(e) {
@@ -58,15 +50,38 @@ function dragLeaveHandler(e) {
 }
 
 /***********  Handlers (mobile) ***************/
-
-function touchStartHandler(e) {
-    DraggedItemMobile = e.target
-    console.log(touchLocation);
-
-}
-
 function touchMoveHandler(e) {
     let touchLocation = e.targetTouches[0];
-    chessPiece.style.left = touchLocation.pageX + 'px';
-    chessPiece.style.top = touchLocation.pageY + 'px';
+    chessPiece.style.left = touchLocation.pageX - 150 + '% ';
+    chessPiece.style.top = touchLocation.pageY - 480 + 'px';
+}
+
+let lastX = `0%`
+let lastY = `0%`
+
+function touchEndHandler(e) {
+    // current box position.
+    let x = parseInt(chessPiece.style.left);
+    let y = parseInt(chessPiece.style.top);
+
+    if ((x <= 40 && x >= -40) && (y <= 30 && y >= -30)) {
+        chessPiece.style.left = `0%`
+        chessPiece.style.top = `0%`
+        lastX = `0%`
+        lastY = `0%`
+    } else if ((x <= 140 && x >= 62) && (y <= 30 && y >= -30)) {
+        chessPiece.style.left = `100%`
+        chessPiece.style.top = `0%`
+        lastX = `100%`
+        lastY = `0%`
+
+    } else if ((x <= 240 && x >= 160) && (y <= 30 && y >= -30)) {
+        chessPiece.style.left = `200%`
+        chessPiece.style.top = `0%`
+        lastX = `200%`
+        lastY = `0%`
+    } else {
+        chessPiece.style.left = lastX
+        chessPiece.style.top = lastY
+    }
 }
