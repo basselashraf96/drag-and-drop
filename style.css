@@ -29,6 +29,7 @@
 }
 
 .block img {
+    position: relative;
     height: 75%;
     object-fit: cover;
 }
